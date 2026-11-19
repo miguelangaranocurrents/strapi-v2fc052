@@ -750,7 +750,12 @@ const RelationModalWithContext = ({
 
   const options = data?.results ?? [];
 
-  React.useLayoutEffect(() => {
+  /**
+   * Clear the search text once the field value changes (e.g. after selecting a relation).
+   * This must be a passive effect so it runs after the Combobox's own effects, which
+   * otherwise write the selected option's label back into the text value.
+   */
+  React.useEffect(() => {
     setTextValue('');
   }, [fieldValue]);
 
